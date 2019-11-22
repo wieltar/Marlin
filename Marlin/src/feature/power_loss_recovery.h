@@ -59,15 +59,6 @@ typedef struct {
     uint8_t active_extruder;
   #endif
 
-  #if DISABLED(NO_VOLUMETRICS)
-    bool volumetric_enabled;
-    #if EXTRUDERS > 1
-      float filament_size[EXTRUDERS];
-    #else
-      float filament_size;
-    #endif
-  #endif
-
   #if HOTENDS
     int16_t target_temperature[HOTENDS];
   #endif

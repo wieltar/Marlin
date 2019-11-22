@@ -5,7 +5,6 @@
 /****************************************************************************
  *   Written By Mark Pelletier  2017 - Aleph Objects, Inc.                  *
  *   Written By Marcio Teixeira 2018 - Aleph Objects, Inc.                  *
- *   Written By Marcio Teixeira 2019 - Cocoa Press                          *
  *                                                                          *
  *   This program is free software: you can redistribute it and/or modify   *
  *   it under the terms of the GNU General Public License as published by   *
@@ -24,16 +23,16 @@
 #pragma once
 
 namespace Theme {
-  #ifdef TOUCH_UI_LULZBOT_BIO
+  #ifdef LULZBOT_USE_BIOPRINTER_UI
     // The Lulzbot Bio uses the color PANTONE 2175C on the case silkscreen.
     // This translates to HSL(208°, 100%, 39%) as an accent color on the GUI.
 
     constexpr int   accent_hue          = 208;
     constexpr float accent_sat          = 0.5;
 
-    constexpr uint32_t logo_bg_rgb      = 0xffffff;
-    constexpr uint32_t logo_fill_rgb    = 0xffffff;
-    constexpr uint32_t logo_stroke_rgb  = hsl_to_rgb(accent_hue, 1.0, 0.39);
+    constexpr uint32_t logo_bg          = 0xffffff;
+    constexpr uint32_t logo_fg          = 0xffffff;
+    constexpr uint32_t logo_stroke      = hsl_to_rgb(accent_hue, 1.0, 0.39);
   #else
     // The Lulzbot logo uses the color PANTONE 382c.
     // This translates to HSL(68°, 68%, 52%) as an accent color on the GUI.
@@ -41,28 +40,19 @@ namespace Theme {
     constexpr int   accent_hue          = 68;
     constexpr float accent_sat          = 0.68;
 
-    constexpr uint32_t logo_bg_rgb      = hsl_to_rgb(accent_hue, 0.77, 0.64);
-    constexpr uint32_t logo_fill_rgb    = hsl_to_rgb(accent_hue, 0.68, 0.52); // Lulzbot Green
-    constexpr uint32_t logo_stroke_rgb  = 0x000000;
+    constexpr uint32_t logo_bg          = hsl_to_rgb(accent_hue, 0.77, 0.64);
+    constexpr uint32_t logo_fg          = hsl_to_rgb(accent_hue, 0.68, 0.52); // Lulzbot Green
+    constexpr uint32_t logo_stroke      = 0x000000;
   #endif
 
   // Shades of accent color
 
-  #ifdef TOUCH_UI_COCOA_PRESS
-    constexpr uint32_t accent_color_1   = hsl_to_rgb(12.8,0.597,0.263); // Darkest
-    constexpr uint32_t accent_color_2   = hsl_to_rgb(12.8,0.597,0.263);
-    constexpr uint32_t accent_color_3   = hsl_to_rgb( 9.6,0.664,0.443);
-    constexpr uint32_t accent_color_4   = hsl_to_rgb(16.3,0.873,0.537);
-    constexpr uint32_t accent_color_5   = hsl_to_rgb(23.0,0.889,0.539);
-    constexpr uint32_t accent_color_6   = hsl_to_rgb(23.0,0.889,0.539); // Lightest
-  #else
-    constexpr uint32_t accent_color_1   = hsl_to_rgb(accent_hue, accent_sat, 0.26); // Darkest
-    constexpr uint32_t accent_color_2   = hsl_to_rgb(accent_hue, accent_sat, 0.39);
-    constexpr uint32_t accent_color_3   = hsl_to_rgb(accent_hue, accent_sat, 0.52);
-    constexpr uint32_t accent_color_4   = hsl_to_rgb(accent_hue, accent_sat, 0.65);
-    constexpr uint32_t accent_color_5   = hsl_to_rgb(accent_hue, accent_sat, 0.78);
-    constexpr uint32_t accent_color_6   = hsl_to_rgb(accent_hue, accent_sat, 0.91); // Lightest
-  #endif
+  constexpr uint32_t accent_color_1     = hsl_to_rgb(accent_hue, accent_sat, 0.26); // Darkest
+  constexpr uint32_t accent_color_2     = hsl_to_rgb(accent_hue, accent_sat, 0.39);
+  constexpr uint32_t accent_color_3     = hsl_to_rgb(accent_hue, accent_sat, 0.52);
+  constexpr uint32_t accent_color_4     = hsl_to_rgb(accent_hue, accent_sat, 0.65);
+  constexpr uint32_t accent_color_5     = hsl_to_rgb(accent_hue, accent_sat, 0.78);
+  constexpr uint32_t accent_color_6     = hsl_to_rgb(accent_hue, accent_sat, 0.91); // Lightest
 
   // Shades of gray
 
@@ -75,7 +65,7 @@ namespace Theme {
   constexpr uint32_t gray_color_5       = hsl_to_rgb(accent_hue, gray_sat, 0.78);
   constexpr uint32_t gray_color_6       = hsl_to_rgb(accent_hue, gray_sat, 0.91); // Lightest
 
-  #if DISABLED(TOUCH_UI_LULZBOT_BIO) && DISABLED(TOUCH_UI_COCOA_PRESS)
+  #ifndef LULZBOT_USE_BIOPRINTER_UI
     // Lulzbot TAZ Pro
     constexpr uint32_t theme_darkest    = gray_color_1;
     constexpr uint32_t theme_dark       = gray_color_2;

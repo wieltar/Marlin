@@ -37,7 +37,7 @@
   #include "../../feature/leds/leds.h"
 #endif
 
-#include "../../Marlin.h" // for wait_for_heatup, idle, startOrResumeJob
+#include "../../Marlin.h" // for wait_for_heatup and idle()
 
 /**
  * M140: Set bed temperature
@@ -59,7 +59,7 @@ void GcodeSuite::M190() {
     thermalManager.setTargetBed(parser.value_celsius());
     #if ENABLED(PRINTJOB_TIMER_AUTOSTART)
       if (parser.value_celsius() > BED_MINTEMP)
-        startOrResumeJob();
+        print_job_timer.start();
     #endif
   }
   else return;

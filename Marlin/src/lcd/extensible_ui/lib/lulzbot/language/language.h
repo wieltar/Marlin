@@ -21,3 +21,5 @@
 #pragma once
 
 #include "language_en.h"
+#include "language_de.h"
+#include "language_fr.h"

@@ -39,9 +39,6 @@ union screen_data_t {
   struct {
     uint8_t e_tag, t_tag, repeat_tag;
     ExtUI::extruder_t saved_extruder;
-    #if FILAMENT_UNLOAD_PURGE_LENGTH > 0
-      bool need_purge;
-    #endif
   } ChangeFilamentScreen;
   struct {
     struct {
@@ -60,7 +57,7 @@ union screen_data_t {
     struct base_numeric_adjustment_t placeholder;
     float e_rel[ExtUI::extruderCount];
   } MoveAxisScreen;
-#if ENABLED(TOUCH_UI_DEVELOPER_MENU)
+#if ENABLED(DEVELOPER_SCREENS)
   struct {
     uint32_t next_watchdog_trigger;
     const char*  message;

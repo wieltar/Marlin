@@ -22,7 +22,7 @@
 
 #include "../config.h"
 
-#if BOTH(LULZBOT_TOUCH_UI, TOUCH_UI_DEVELOPER_MENU)
+#if BOTH(LULZBOT_TOUCH_UI, DEVELOPER_SCREENS)
 
 #include "screens.h"
 
@@ -155,4 +155,4 @@ void WidgetsScreen::onIdle() {
   BaseScreen::onIdle();
 }
 
-#endif // LULZBOT_TOUCH_UI && TOUCH_UI_DEVELOPER_MENU
+#endif // LULZBOT_TOUCH_UI && DEVELOPER_SCREENS

@@ -5,7 +5,6 @@
 /****************************************************************************
  *   Written By Mark Pelletier  2017 - Aleph Objects, Inc.                  *
  *   Written By Marcio Teixeira 2018 - Aleph Objects, Inc.                  *
- *   Written By Marcio Teixeira 2019 - Cocoa Press                          *
  *                                                                          *
  *   This program is free software: you can redistribute it and/or modify   *
  *   it under the terms of the GNU General Public License as published by   *
@@ -30,18 +29,10 @@
 #include "../ftdi_eve_lib/extras/poly_ui.h"
 #include "../archim2-flash/flash_storage.h"
 
-#ifdef SHOW_CUSTOM_BOOTSCREEN
-  #ifdef TOUCH_UI_PORTRAIT
-    #include "../theme/_bootscreen_portrait.h"
-  #else
-    #include "../theme/_bootscreen_landscape.h"
-  #endif
+#ifdef TOUCH_UI_PORTRAIT
+  #include "../theme/bootscreen_logo_portrait.h"
 #else
-  #ifdef TOUCH_UI_PORTRAIT
-    #include "../theme/marlin_bootscreen_portrait.h"
-  #else
-    #include "../theme/marlin_bootscreen_landscape.h"
-  #endif
+  #include "../theme/bootscreen_logo_landscape.h"
 #endif
 
 using namespace FTDI;
@@ -71,11 +62,10 @@ void BootScreen::onIdle() {
     GOTO_SCREEN(TouchCalibrationScreen);
     current_screen.forget();
     PUSH_SCREEN(StatusScreen);
-    StatusScreen::setStatusMessage(GET_TEXT_F(WELCOME_MSG));
   } else {
     if (!UIFlashStorage::is_valid()) {
       StatusScreen::loadBitmaps();
-      SpinnerDialogBox::show(GET_TEXT_F(MSG_PLEASE_WAIT));
+      SpinnerDialogBox::show(GET_TEXT_F(PLEASE_WAIT));
       UIFlashStorage::format_flash();
       SpinnerDialogBox::hide();
     }
@@ -89,7 +79,7 @@ void BootScreen::onIdle() {
 
     StatusScreen::loadBitmaps();
 
-    #ifdef TOUCH_UI_LULZBOT_BIO
+    #ifdef LULZBOT_USE_BIOPRINTER_UI
       GOTO_SCREEN(BioConfirmHomeXYZ);
       current_screen.forget();
       PUSH_SCREEN(StatusScreen);
@@ -107,15 +97,21 @@ void BootScreen::onIdle() {
 void BootScreen::showSplashScreen() {
   CommandProcessor cmd;
   cmd.cmd(CMD_DLSTART);
-  cmd.cmd(CLEAR_COLOR_RGB(LOGO_BACKGROUND));
+  cmd.cmd(CLEAR_COLOR_RGB(logo_bg));
   cmd.cmd(CLEAR(true,true,true));
 
   #define POLY(A) PolyUI::poly_reader_t(A, sizeof(A)/sizeof(A[0]))
-  #define LOGO_PAINT_PATH(rgb, path) cmd.cmd(COLOR_RGB(rgb)); ui.fill(POLY(path));
 
   PolyUI ui(cmd);
 
-  LOGO_PAINT_PATHS
+  cmd.cmd(COLOR_RGB(logo_fg));
+  ui.fill(POLY(logo_green));
+  cmd.cmd(COLOR_RGB(logo_stroke));
+  ui.fill(POLY(logo_black));
+  ui.fill(POLY(logo_type));
+  ui.fill(POLY(logo_mark));
+  cmd.cmd(COLOR_RGB(0xFFFFFF));
+  ui.fill(POLY(logo_white));
 
   cmd.cmd(DL::DL_DISPLAY);
   cmd.cmd(CMD_SWAP);

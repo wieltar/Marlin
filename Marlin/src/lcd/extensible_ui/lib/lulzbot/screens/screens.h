@@ -69,7 +69,7 @@ enum {
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
   FILAMENT_RUNOUT_SCREEN_CACHE,
 #endif
-#ifdef TOUCH_UI_LULZBOT_BIO
+#ifdef LULZBOT_USE_BIOPRINTER_UI
   PRINTING_SCREEN_CACHE,
 #endif
   CHANGE_FILAMENT_SCREEN_CACHE,
@@ -226,7 +226,7 @@ class SpinnerDialogBox : public DialogBoxBaseClass, public CachedScreen<SPINNER_
     static void enqueueAndWait_P(const progmem_str message, const progmem_str commands);
 };
 
-#if DISABLED(TOUCH_UI_LULZBOT_BIO) && DISABLED(TOUCH_UI_COCOA_PRESS)
+#ifndef LULZBOT_USE_BIOPRINTER_UI
 class StatusScreen : public BaseScreen, public CachedScreen<STATUS_SCREEN_CACHE,STATUS_SCREEN_DL_SIZE> {
   private:
     static void draw_axis_position(draw_mode_t);
@@ -273,9 +273,7 @@ class StatusScreen : public BaseScreen, public CachedScreen<STATUS_SCREEN_CACHE,
       static void onIdle();
 
   };
-#endif
 
-#if ENABLED(TOUCH_UI_LULZBOT_BIO)
   class BioPrintingDialogBox : public BaseScreen, public CachedScreen<PRINTING_SCREEN_CACHE,PRINTING_SCREEN_DL_SIZE> {
     private:
       static void draw_status_message(draw_mode_t, const char * const);
@@ -345,7 +343,6 @@ class ChangeFilamentScreen : public BaseScreen, public CachedScreen<CHANGE_FILAM
     static ExtUI::extruder_t getExtruder();
     static void drawTempGradient(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
     static uint32_t getTempColor(uint32_t temp);
-    static void doPurge();
   public:
     static void onEntry();
     static void onExit();
@@ -600,7 +597,7 @@ class InterfaceSettingsScreen : public BaseScreen, public CachedScreen<INTERFACE
     };
 
   public:
-    #ifdef ARCHIM2_SPI_FLASH_EEPROM_BACKUP_SIZE
+    #ifdef LULZBOT_EEPROM_BACKUP_SIZE
       static bool backupEEPROM();
     #endif
 
@@ -690,7 +687,7 @@ class DisplayTuningScreen : public BaseNumericAdjustmentScreen, public CachedScr
     static bool onTouchHeld(uint8_t tag);
 };
 
-#if ENABLED(TOUCH_UI_DEVELOPER_MENU)
+#if ENABLED(DEVELOPER_SCREENS)
   class DeveloperMenu : public BaseScreen, public UncachedScreen {
     public:
       static void onRedraw(draw_mode_t);

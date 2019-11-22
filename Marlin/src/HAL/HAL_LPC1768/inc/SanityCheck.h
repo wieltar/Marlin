@@ -21,13 +21,6 @@
  */
 #pragma once
 
-#if PIO_PLATFORM_VERSION < 1001
-  #error "nxplpc-arduino-lpc176x package is out of date, Please update the PlatformIO platforms, frameworks and libraries. You may need to remove the platform and let it reinstall automatically."
-#endif
-#if PIO_FRAMEWORK_VERSION < 2002
-  #error "framework-arduino-lpc176x package is out of date, Please update the PlatformIO platforms, frameworks and libraries."
-#endif
-
 /**
  * Test LPC176x-specific configuration values for errors at compile-time.
  */

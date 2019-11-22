@@ -62,7 +62,7 @@ class TWIBus {
      * @brief Internal buffer
      * @details A fixed buffer. TWI commands can be no longer than this.
      */
-    uint8_t buffer[TWIBUS_BUFFER_SIZE];
+    char buffer[TWIBUS_BUFFER_SIZE];
 
 
   public:

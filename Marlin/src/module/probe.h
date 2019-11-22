@@ -29,6 +29,8 @@
 
 #if HAS_BED_PROBE
 
+  constexpr xyz_pos_t nozzle_to_probe_offset = NOZZLE_TO_PROBE_OFFSET;
+
   extern xyz_pos_t probe_offset;
 
   bool set_probe_deployed(const bool deploy);
@@ -60,7 +62,7 @@
 
 #endif
 
-#if HAS_LEVELING && (HAS_BED_PROBE || ENABLED(PROBE_MANUALLY))
+#if HAS_LEVELING && HAS_BED_PROBE
   inline float probe_min_x() {
     return _MAX(
       #if IS_KINEMATIC
