@@ -868,8 +868,8 @@
 #define BLTOUCH
 
 #if ENABLED(BLTOUCH)
-#define BLTOUCH_DELAY 200
-#define BLTOUCH_FORCE_5V_MODE
+  #define BLTOUCH_DELAY 200
+  #define BLTOUCH_FORCE_5V_MODE
 #endif
 
 /**
@@ -930,7 +930,7 @@
 #define NOZZLE_TO_PROBE_OFFSET { -42, -5, 0 }
 
 // Certain types of probes need to stay away from edges
-#define MIN_PROBE_EDGE 30
+#define MIN_PROBE_EDGE 20
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 10000
@@ -1058,8 +1058,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 230
-#define Y_BED_SIZE 230
+#define X_BED_SIZE 235
+#define Y_BED_SIZE 235
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1463,7 +1463,7 @@
  *    P1  Raise the nozzle always to Z-park height.
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
-#define NOZZLE_PARK_FEATURE
+// #define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
